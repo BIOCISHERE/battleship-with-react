@@ -1,3 +1,41 @@
 /* 
     General Styles
 */
+.square {
+	height: 3rem;
+	width: 3rem;
+}
+.infoX {
+	height: 2rem;
+	width: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.infoY {
+	height: 3rem;
+	width: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.fitY {
+	display: flex;
+	margin-left: 1rem;
+}
+.fitX {
+	display: flex;
+	margin-left: 3rem;
+}
+.top-left {
+	border-top-left-radius: 0.5rem;
+}
+.top-right {
+	border-top-right-radius: 0.5rem;
+}
+.bot-left {
+	border-bottom-left-radius: 0.5rem;
+}
+.bot-right {
+	border-bottom-right-radius: 0.5rem;
+}

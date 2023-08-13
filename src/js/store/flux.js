@@ -5,14 +5,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				{
 					title: "FIRST",
 					background: "white",
-					initial: "white"
+					initial: "white",
 				},
 				{
 					title: "SECOND",
 					background: "white",
-					initial: "white"
-				}
-			]
+					initial: "white",
+				},
+			],
+			playerName: "",
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -37,8 +38,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
-		}
+			},
+			savePlayerName: (name) => {
+				if (name == "" || name == null || name == undefined) {
+					setStore({ playerName: "Player" });
+				} else {
+					setStore({ playerName: name });
+				}
+			},
+		},
 	};
 };
 
