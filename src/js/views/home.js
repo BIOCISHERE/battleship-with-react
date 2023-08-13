@@ -26,6 +26,7 @@ export const Home = () => {
 								className="form-control"
 								id="inputPlayerName"
 								aria-describedby="playerNameHelp"
+								placeholder="if you don't give yoour name, you'll be Player"
 								onChange={(e) =>
 									setIsPlayerName(e.target.value)
 								}

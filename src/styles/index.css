@@ -27,15 +27,3 @@
 	display: flex;
 	margin-left: 3rem;
 }
-.top-left {
-	border-top-left-radius: 0.5rem;
-}
-.top-right {
-	border-top-right-radius: 0.5rem;
-}
-.bot-left {
-	border-bottom-left-radius: 0.5rem;
-}
-.bot-right {
-	border-bottom-right-radius: 0.5rem;
-}
