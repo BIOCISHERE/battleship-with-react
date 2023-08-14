@@ -1,8 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 
 export const Game = () => {
 	const { store, actions } = useContext(Context);
+
+	const [isPlayerBoard, setIsPlayerBoard] = useState([]);
+	const [isCpuBoard, setIsCpuBoard] = useState([]);
+
+	useEffect(() => {
+		setIsPlayerBoard(store.playerBoard);
+		setIsCpuBoard(store.cpuBoard);
+	}, []);
 
 	return (
 		<div className="container-fluid border border-dark">
@@ -24,7 +32,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">A</div>
 								{store.playerBoard[0].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[0][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[0][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[0][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										A{index + 1}
 									</button>
 								))}
@@ -32,7 +64,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">B</div>
 								{store.playerBoard[1].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[1][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[1][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[1][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										B{index + 1}
 									</button>
 								))}
@@ -40,7 +96,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">C</div>
 								{store.playerBoard[2].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[2][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[2][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[2][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										C{index + 1}
 									</button>
 								))}
@@ -48,7 +128,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">D</div>
 								{store.playerBoard[3].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[3][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[3][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[3][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										D{index + 1}
 									</button>
 								))}
@@ -56,7 +160,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">E</div>
 								{store.playerBoard[4].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[4][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[4][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[4][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										E{index + 1}
 									</button>
 								))}
@@ -64,7 +192,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">F</div>
 								{store.playerBoard[5].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[5][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[5][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[5][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										F{index + 1}
 									</button>
 								))}
@@ -72,7 +224,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">G</div>
 								{store.playerBoard[6].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[6][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[6][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[6][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										G{index + 1}
 									</button>
 								))}
@@ -80,7 +256,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">H</div>
 								{store.playerBoard[7].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[7][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[7][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[7][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										H{index + 1}
 									</button>
 								))}
@@ -88,7 +288,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">I</div>
 								{store.playerBoard[8].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[8][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[8][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[8][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										I{index + 1}
 									</button>
 								))}
@@ -96,7 +320,31 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">J</div>
 								{store.playerBoard[9].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerPlayer(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isPlayerBoard[9][index] = 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else if (e.target.value == 2) {
+												isPlayerBoard[9][index] == 2;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											} else {
+												isPlayerBoard[9][index] = 3;
+												actions.updatePlayer(
+													isPlayerBoard
+												);
+											}
+										}}
+									>
 										J{index + 1}
 									</button>
 								))}
@@ -116,7 +364,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">A</div>
 								{store.cpuBoard[0].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[0][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[0][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[0][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										A{index + 1}
 									</button>
 								))}
@@ -124,7 +390,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">B</div>
 								{store.cpuBoard[1].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[1][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[1][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[1][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										B{index + 1}
 									</button>
 								))}
@@ -132,7 +416,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">C</div>
 								{store.cpuBoard[2].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[2][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[2][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[2][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										C{index + 1}
 									</button>
 								))}
@@ -140,7 +442,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">D</div>
 								{store.cpuBoard[3].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[3][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[3][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[3][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										D{index + 1}
 									</button>
 								))}
@@ -148,7 +468,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">E</div>
 								{store.cpuBoard[4].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[4][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[4][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[4][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										E{index + 1}
 									</button>
 								))}
@@ -156,7 +494,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">F</div>
 								{store.cpuBoard[5].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[5][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[5][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[5][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										F{index + 1}
 									</button>
 								))}
@@ -164,7 +520,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">G</div>
 								{store.cpuBoard[6].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[6][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[6][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[6][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										G{index + 1}
 									</button>
 								))}
@@ -172,7 +546,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">H</div>
 								{store.cpuBoard[7].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[7][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[7][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[7][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										H{index + 1}
 									</button>
 								))}
@@ -180,7 +572,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">I</div>
 								{store.cpuBoard[8].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[8][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[8][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[8][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										I{index + 1}
 									</button>
 								))}
@@ -188,7 +598,25 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">J</div>
 								{store.cpuBoard[9].map((item, index) => (
-									<button className="square" key={index}>
+									<button
+										className={actions.classManagerCpu(
+											item
+										)}
+										key={index}
+										value={item}
+										onClick={(e) => {
+											if (e.target.value == 1) {
+												isCpuBoard[9][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else if (e.target.value == 2) {
+												isCpuBoard[9][index] = 2;
+												actions.updateCpu(isCpuBoard);
+											} else {
+												isCpuBoard[9][index] = 3;
+												actions.updateCpu(isCpuBoard);
+											}
+										}}
+									>
 										J{index + 1}
 									</button>
 								))}

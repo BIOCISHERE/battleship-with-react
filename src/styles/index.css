@@ -27,3 +27,15 @@
 	display: flex;
 	margin-left: 3rem;
 }
+.boat {
+	background-color: grey;
+}
+.hit {
+	background-color: red;
+}
+.miss {
+	background-color: white;
+}
+.ocean {
+	background-color: blue;
+}

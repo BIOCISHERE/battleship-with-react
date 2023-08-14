@@ -22,28 +22,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//2 = a sunken part of the ship
 			//3 = a missed shot
 			playerBoard: [
+				[1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+				[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
 			],
 			cpuBoard: [
+				[1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+				[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 1, 1, 0, 0, 1],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
 			],
 		},
 		actions: {
@@ -79,6 +79,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			noName: () => {
 				setStore({ playerName: "Player" });
+			},
+			updatePlayer: (arr) => {
+				setStore({ playerBoard: arr });
+			},
+			updateCpu: (arr) => {
+				setStore({ cpuBoard: arr });
+			},
+			classManagerPlayer: (value) => {
+				if (value == 1) {
+					return "square boat";
+				} else if (value == 2) {
+					return "square hit";
+				} else if (value == 3) {
+					return "square miss";
+				} else {
+					return "square ocean";
+				}
+			},
+			classManagerCpu: (value) => {
+				if (value == 1) {
+					return "square ocean";
+				} else if (value == 2) {
+					return "square hit";
+				} else if (value == 3) {
+					return "square miss";
+				} else {
+					return "square ocean";
+				}
 			},
 		},
 	};
