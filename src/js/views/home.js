@@ -26,15 +26,14 @@ export const Home = () => {
 								className="form-control"
 								id="inputPlayerName"
 								aria-describedby="playerNameHelp"
-								placeholder="if you don't give yoour name, you'll be Player"
+								placeholder="Player"
 								onChange={(e) =>
 									setIsPlayerName(e.target.value)
 								}
 								value={isPlayerName}
 							/>
 							<div id="playerNameHelp" className="form-text">
-								We'll use this name to let you know if you win
-								or lose.
+								if you don't give yoour name, you'll be Player.
 							</div>
 						</div>
 						<Link
