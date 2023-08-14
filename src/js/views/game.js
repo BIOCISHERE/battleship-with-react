@@ -363,15 +363,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[1][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[1][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[1][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[1][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[1][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[1][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -387,15 +394,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[2][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[2][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[2][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[2][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[2][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[2][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -411,15 +425,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[3][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[3][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[3][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[3][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[3][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[3][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -435,15 +456,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[4][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[4][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[4][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[4][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[4][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[4][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -459,15 +487,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[5][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[5][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[5][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[5][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[5][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[5][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -483,15 +518,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[6][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[6][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[6][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[6][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[6][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[6][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -507,15 +549,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[7][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[7][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[7][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[7][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[7][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[7][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -531,15 +580,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[8][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[8][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[8][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[8][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[8][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[8][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
@@ -555,15 +611,22 @@ export const Game = () => {
 										key={index}
 										value={item}
 										onClick={(e) => {
-											if (e.target.value == 1) {
-												isCpuBoard[9][index] = 2;
-												actions.updateCpu(isCpuBoard);
-											} else if (e.target.value == 2) {
-												isCpuBoard[9][index] = 2;
-												actions.updateCpu(isCpuBoard);
+											if (isPlayerTurn) {
+												if (e.target.value == 1) {
+													isCpuBoard[9][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else if (e.target.value == 2) {
+													isCpuBoard[9][index] = 2;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												} else {
+													isCpuBoard[9][index] = 3;
+													actions.updateCpu(isCpuBoard);
+													setIsPlayerTurn(false);
+												}
 											} else {
-												isCpuBoard[9][index] = 3;
-												actions.updateCpu(isCpuBoard);
+												alert("It's not your turn");
 											}
 										}}
 									>
