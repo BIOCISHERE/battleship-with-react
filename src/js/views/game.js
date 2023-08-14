@@ -10,11 +10,46 @@ export const Game = () => {
 
 	const [isPlayerTurn, setIsPlayerTurn] = useState(true);
 
+	var max = 100;
+
+	const cpuPick = (limit) => {
+		if (!isPlayerTurn) {
+			let random = Math.floor(Math.random() * limit);
+
+			let picked = isPlayerBoard[isCpuOptions[random].arr][isCpuOptions[random].index];
+
+			if (picked == 1) {
+				isPlayerBoard[isCpuOptions[random].arr][isCpuOptions[random].index] = 2;
+				actions.updatePlayer(isPlayerBoard);
+				max - 1;
+				setIsPlayerTurn(true);
+			} else if (picked == 2) {
+				isPlayerBoard[isCpuOptions[random].arr][isCpuOptions[random].index] = 2;
+				actions.updatePlayer(isPlayerBoard);
+				max - 1;
+				setIsPlayerTurn(true);
+			} else {
+				isPlayerBoard[isCpuOptions[random].arr][isCpuOptions[random].index] = 3;
+				actions.updatePlayer(isPlayerBoard);
+				max - 1;
+				setIsPlayerTurn(true);
+			}
+			//console.log(picked);
+		}
+	};
+
 	useEffect(() => {
 		setIsPlayerBoard(store.playerBoard);
 		setIsCpuBoard(store.cpuBoard);
 		setIsCpuOptions(store.cpuOptions);
 	}, []);
+
+	useEffect(() => {
+		const timer = setInterval(() => {
+			cpuPick(max);
+		}, 1000);
+		return () => clearInterval(timer);
+	}, [isPlayerTurn]);
 
 	return (
 		<div className="container-fluid border border-dark m-0 p-0">
