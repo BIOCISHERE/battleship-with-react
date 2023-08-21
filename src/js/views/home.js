@@ -14,11 +14,11 @@ export const Home = () => {
 			<div className="row">
 				<div className="col-6 mx-auto my-auto">
 					<form className="border border-dark text-center">
+						<div className="text-center">
+							<h1>Home</h1>
+						</div>
 						<div className="m-3">
-							<label
-								htmlFor="inputPlayerName"
-								className="form-label"
-							>
+							<label htmlFor="inputPlayerName" className="form-label">
 								What is your name ?
 							</label>
 							<input
@@ -27,9 +27,7 @@ export const Home = () => {
 								id="inputPlayerName"
 								aria-describedby="playerNameHelp"
 								placeholder="Player"
-								onChange={(e) =>
-									setIsPlayerName(e.target.value)
-								}
+								onChange={(e) => setIsPlayerName(e.target.value)}
 								value={isPlayerName}
 							/>
 							<div id="playerNameHelp" className="form-text">
