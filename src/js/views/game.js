@@ -9,8 +9,13 @@ export const Game = () => {
 	const [isCpuOptions, setIsCpuOptions] = useState([]);
 
 	const [isPlayerTurn, setIsPlayerTurn] = useState(true);
+
 	const [isHaveIt, setIsHaveIt] = useState([]);
 	const [isTurn, setIsTurn] = useState(0);
+
+	const [isPlayerLives, setIsPlayerLives] = useState(14);
+	const [isCpuLives, setIsCpuLives] = useState(14);
+	const [isWinner, setIsWinner] = useState(false);
 
 	const uniqueRandomNumber = (maxNmbr) => {
 		let random = Math.floor(Math.random() * maxNmbr);
@@ -44,12 +49,15 @@ export const Game = () => {
 
 			let updateTurn = Number(isTurn) + 1;
 
+			let updatePlayerLives = Number(isPlayerLives) - 1;
+
 			if (picked == 1) {
 				isPlayerBoard[ex1][ex2] = 2;
 				actions.updatePlayer(isPlayerBoard);
 
 				//console.log(isTurn, "antes");
 				setIsTurn(updateTurn);
+				setIsPlayerLives(updatePlayerLives);
 				//console.log(isTurn, "despues");
 				setIsPlayerTurn(true);
 			} else if (picked == 2) {
@@ -198,7 +206,9 @@ export const Game = () => {
 			<div className="container">
 				<div className="row">
 					<div className="col text-center">
-						<h3>{store.playerName}</h3>
+						<h3>
+							{store.playerName} ({isPlayerLives} lives left)
+						</h3>
 						<div className="row">
 							<div className="fitX">
 								{store.playerBoard.map((item, index) => (
@@ -290,7 +300,7 @@ export const Game = () => {
 						</div>
 					</div>
 					<div className="col text-center">
-						<h3>CPU</h3>
+						<h3>CPU ({isCpuLives} lives left)</h3>
 						<div className="row">
 							<div className="fitX">
 								{store.cpuBoard.map((item, index) => (
@@ -308,9 +318,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[0][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[0][index] = 2;
@@ -339,9 +351,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[1][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[1][index] = 2;
@@ -370,9 +384,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[2][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[2][index] = 2;
@@ -401,9 +417,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[3][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[3][index] = 2;
@@ -432,9 +450,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[4][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[4][index] = 2;
@@ -463,9 +483,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[5][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[5][index] = 2;
@@ -494,9 +516,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[6][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[6][index] = 2;
@@ -525,9 +549,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[7][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[7][index] = 2;
@@ -556,9 +582,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[8][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[8][index] = 2;
@@ -587,9 +615,11 @@ export const Game = () => {
 										value={item}
 										onClick={(e) => {
 											if (isPlayerTurn) {
+												let updateCpuLives = Number(isCpuLives) - 1;
 												if (e.target.value == 1) {
 													isCpuBoard[9][index] = 2;
 													actions.updateCpu(isCpuBoard);
+													setIsCpuLives(updateCpuLives);
 													setIsPlayerTurn(false);
 												} else if (e.target.value == 2) {
 													isCpuBoard[9][index] = 2;
