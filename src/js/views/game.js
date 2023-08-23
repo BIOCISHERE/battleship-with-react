@@ -13,8 +13,9 @@ export const Game = () => {
 	const [isHaveIt, setIsHaveIt] = useState([]);
 	const [isTurn, setIsTurn] = useState(0);
 
-	const [isPlayerLives, setIsPlayerLives] = useState(14);
-	const [isCpuLives, setIsCpuLives] = useState(14);
+	const [isPlayerLives, setIsPlayerLives] = useState(18);
+	const [isCpuLives, setIsCpuLives] = useState(18);
+
 	const [isWinner, setIsWinner] = useState(false);
 
 	const uniqueRandomNumber = (maxNmbr) => {
@@ -38,44 +39,88 @@ export const Game = () => {
 	};
 
 	const cpuPick = () => {
-		if (!isPlayerTurn) {
-			let ex0 = isHaveIt[isTurn];
-			ex0 = Number(ex0);
+		if (isCpuLives == 0 || isPlayerLives == 0) {
+			setIsWinner(true);
+		} else {
+			if (!isPlayerTurn) {
+				let ex0 = isHaveIt[isTurn];
+				ex0 = Number(ex0);
 
-			let ex1 = isCpuOptions[ex0].line;
-			let ex2 = isCpuOptions[ex0].index;
+				let ex1 = isCpuOptions[ex0].line;
+				let ex2 = isCpuOptions[ex0].index;
 
-			let picked = isPlayerBoard[ex1][ex2];
+				let picked = isPlayerBoard[ex1][ex2];
 
-			let updateTurn = Number(isTurn) + 1;
+				let updateTurn = Number(isTurn) + 1;
 
-			let updatePlayerLives = Number(isPlayerLives) - 1;
+				let updatePlayerLives = Number(isPlayerLives) - 1;
 
-			if (picked == 1) {
-				isPlayerBoard[ex1][ex2] = 2;
-				actions.updatePlayer(isPlayerBoard);
+				if (picked == 1) {
+					isPlayerBoard[ex1][ex2] = 2;
+					//actions.updatePlayer(isPlayerBoard);
 
-				//console.log(isTurn, "antes");
-				setIsTurn(updateTurn);
-				setIsPlayerLives(updatePlayerLives);
-				//console.log(isTurn, "despues");
-				setIsPlayerTurn(true);
-			} else if (picked == 2) {
-				isPlayerBoard[ex1][ex2] = 2;
-				actions.updatePlayer(isPlayerBoard);
+					setIsTurn(updateTurn);
+					setIsPlayerLives(updatePlayerLives);
 
-				//console.log(isTurn, "antes");
-				setIsTurn(updateTurn);
-				//console.log(isTurn, "despues");
-				setIsPlayerTurn(true);
+					setIsPlayerTurn(true);
+				} else if (picked == 2) {
+					isPlayerBoard[ex1][ex2] = 2;
+					//actions.updatePlayer(isPlayerBoard);
+
+					setIsTurn(updateTurn);
+
+					setIsPlayerTurn(true);
+				} else {
+					isPlayerBoard[ex1][ex2] = 3;
+					//actions.updatePlayer(isPlayerBoard);
+
+					setIsTurn(updateTurn);
+					setIsPlayerTurn(true);
+				}
+			}
+		}
+	};
+
+	const playerPick = (target, arrayNmbr, index) => {
+		if (isCpuLives == 0 || isPlayerLives == 0) {
+			setIsWinner(true);
+		} else {
+			if (isPlayerTurn) {
+				let updateCpuLives = Number(isCpuLives) - 1;
+				if (target == 1) {
+					isCpuBoard[arrayNmbr][index] = 2;
+					//actions.updateCpu(isCpuBoard);
+
+					setIsCpuLives(updateCpuLives);
+
+					setIsPlayerTurn(false);
+				} else if (target == 2) {
+					isCpuBoard[arrayNmbr][index] = 2;
+					//actions.updateCpu(isCpuBoard);
+					//setIsPlayerTurn(false);
+				} else {
+					isCpuBoard[arrayNmbr][index] = 3;
+					actions.updateCpu(isCpuBoard);
+					//setIsPlayerTurn(false);
+				}
 			} else {
-				isPlayerBoard[ex1][ex2] = 3;
-				actions.updatePlayer(isPlayerBoard);
+				alert("It's not your turn");
+			}
+		}
+	};
 
-				//console.log(isTurn, "antes");
-				setIsTurn(updateTurn);
-				//console.log(isTurn, "despues");
-				setIsPlayerTurn(true);
+	const turnAndWinner = () => {
+		if (isWinner) {
+			if (isCpuLives == 0) {
+				return <h1>{store.playerName} has won!</h1>;
+			} else {
+				return <h1>CPU has won!</h1>;
+			}
+		} else {
+			if (isPlayerTurn) {
+				return <h1>It's {store.playerName} turn</h1>;
+			} else {
+				return <h1>It's CPU turn</h1>;
 			}
 		}
 	};
@@ -186,6 +231,10 @@ export const Game = () => {
 
 	useEffect(() => {
 		uniqueRandomNumber(100);
+		setIsPlayerBoard(store.playerBoard);
+		setIsCpuBoard(store.cpuBoard);
+		setIsCpuOptions(store.cpuOptions);
+
 		const timer = setInterval(() => {
 			cpuPick();
 		}, 1000);
@@ -195,7 +244,7 @@ export const Game = () => {
 	return (
 		<div className="container-fluid border border-dark m-0 p-0">
 			<div className="text-center">
-				{isPlayerTurn ? <h1>It's {store.playerName} turn</h1> : <h1>It's CPU turn. </h1>}
+				{turnAndWinner()}
 				<h5>
 					<span className="text-primary">A blue box represents an empty space. |</span>
 					<span className="text-secondary">| A grey box represents a piece of a ship. |</span>
@@ -316,27 +365,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[0][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[0][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[0][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 0, index)}
 									>
 										A{index + 1}
 									</button>
@@ -349,27 +378,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[1][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[1][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[1][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 1, index)}
 									>
 										B{index + 1}
 									</button>
@@ -382,27 +391,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[2][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[2][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[2][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 2, index)}
 									>
 										C{index + 1}
 									</button>
@@ -415,27 +404,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[3][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[3][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[3][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 3, index)}
 									>
 										D{index + 1}
 									</button>
@@ -448,27 +417,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[4][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[4][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[4][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 4, index)}
 									>
 										E{index + 1}
 									</button>
@@ -481,27 +430,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[5][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[5][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[5][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 5, index)}
 									>
 										F{index + 1}
 									</button>
@@ -514,27 +443,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[6][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[6][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[6][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 6, index)}
 									>
 										G{index + 1}
 									</button>
@@ -547,27 +456,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[7][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[7][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[7][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 7, index)}
 									>
 										H{index + 1}
 									</button>
@@ -580,27 +469,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[8][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[8][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[8][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 8, index)}
 									>
 										I{index + 1}
 									</button>
@@ -613,27 +482,7 @@ export const Game = () => {
 										className={actions.classManagerCpu(item)}
 										key={index}
 										value={item}
-										onClick={(e) => {
-											if (isPlayerTurn) {
-												let updateCpuLives = Number(isCpuLives) - 1;
-												if (e.target.value == 1) {
-													isCpuBoard[9][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													setIsCpuLives(updateCpuLives);
-													setIsPlayerTurn(false);
-												} else if (e.target.value == 2) {
-													isCpuBoard[9][index] = 2;
-													actions.updateCpu(isCpuBoard);
-													//setIsPlayerTurn(false);
-												} else {
-													isCpuBoard[9][index] = 3;
-													actions.updateCpu(isCpuBoard);
-													setIsPlayerTurn(false);
-												}
-											} else {
-												alert("It's not your turn");
-											}
-										}}
+										onClick={(e) => playerPick(e.target.value, 9, index)}
 									>
 										J{index + 1}
 									</button>
