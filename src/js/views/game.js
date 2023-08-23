@@ -84,6 +84,11 @@ export const Game = () => {
 	const playerPick = (target, arrayNmbr, index) => {
 		if (isCpuLives == 0 || isPlayerLives == 0) {
 			setIsWinner(true);
+			if (isCpuLives == 0) {
+				alert(`${store.playerName} has won!`);
+			} else {
+				alert("CPU has won!");
+			}
 		} else {
 			if (isPlayerTurn) {
 				let updateCpuLives = Number(isCpuLives) - 1;
