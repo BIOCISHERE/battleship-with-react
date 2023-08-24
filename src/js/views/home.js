@@ -37,7 +37,7 @@ export const Home = () => {
 						<Link
 							role="button"
 							className="btn btn-primary my-2"
-							to={"/game"}
+							to={"/boat-selection"}
 							onClick={() => actions.savePlayerName(isPlayerName)}
 						>
 							Let's play battleship.

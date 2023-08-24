@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
-export const Game = () => {
+export const BoatSelection = () => {
 	const { store, actions } = useContext(Context);
 
 	const [isPlayerBoard, setIsPlayerBoard] = useState([]);
@@ -13,8 +14,8 @@ export const Game = () => {
 	const [isHaveIt, setIsHaveIt] = useState([]);
 	const [isTurn, setIsTurn] = useState(0);
 
-	const [isPlayerLives, setIsPlayerLives] = useState(17);
-	const [isCpuLives, setIsCpuLives] = useState(17);
+	const [isPlayerLives, setIsPlayerLives] = useState(18);
+	const [isCpuLives, setIsCpuLives] = useState(18);
 
 	const [isWinner, setIsWinner] = useState(false);
 
@@ -97,8 +98,7 @@ export const Game = () => {
 					isCpuBoard[arrayNmbr][index] = 2;
 				} else {
 					isCpuBoard[arrayNmbr][index] = 3;
-
-					setIsPlayerTurn(false);
+					actions.updateCpu(isCpuBoard);
 				}
 			} else {
 				alert("It's not your turn");
@@ -248,144 +248,25 @@ export const Game = () => {
 						</div>
 					</div>
 					<div className="col text-center">
-						<h3>CPU ({isCpuLives} lives left)</h3>
+						<h3>Setting up your naval fleet</h3>
 						<div className="row">
-							<div className="fitX">
-								{store.cpuBoard.map((item, index) => (
-									<div className="infoX" key={index}>
-										{index + 1}
-									</div>
-								))}
+							<h4 className="mt-3">1.- Choose which orientation</h4>
+							<div>
+								<button className="btn btn-success m-1">Vertical</button>
+								<button className="btn btn-danger m-1">Horizontal</button>
 							</div>
-							<div className="fitY">
-								<div className="infoY">A</div>
-								{store.cpuBoard[0].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 0, index)}
-									>
-										A{index + 1}
-									</button>
-								))}
+							<h4 className="mt-3">2.- Choose a boat</h4>
+							<div>
+								<button className="btn btn-primary m-1">Aircraft carrier</button> <br />
+								<button className="btn btn-primary m-1">Battleship</button> <br />
+								<button className="btn btn-primary m-1">Destroyer</button> <br />
+								<button className="btn btn-primary m-1">Patrol boat</button>
 							</div>
-							<div className="fitY">
-								<div className="infoY">B</div>
-								{store.cpuBoard[1].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 1, index)}
-									>
-										B{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">C</div>
-								{store.cpuBoard[2].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 2, index)}
-									>
-										C{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">D</div>
-								{store.cpuBoard[3].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 3, index)}
-									>
-										D{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">E</div>
-								{store.cpuBoard[4].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 4, index)}
-									>
-										E{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">F</div>
-								{store.cpuBoard[5].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 5, index)}
-									>
-										F{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">G</div>
-								{store.cpuBoard[6].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 6, index)}
-									>
-										G{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">H</div>
-								{store.cpuBoard[7].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 7, index)}
-									>
-										H{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">I</div>
-								{store.cpuBoard[8].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 8, index)}
-									>
-										I{index + 1}
-									</button>
-								))}
-							</div>
-							<div className="fitY">
-								<div className="infoY">J</div>
-								{store.cpuBoard[9].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 9, index)}
-									>
-										J{index + 1}
-									</button>
-								))}
+							<h4 className="mt-3">3.- Click the button down below to start if finished</h4>
+							<div>
+								<Link role="button" className="btn btn-warning m-1" to={"/game"}>
+									Ready, set, go!
+								</Link>
 							</div>
 						</div>
 					</div>
