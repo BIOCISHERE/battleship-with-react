@@ -122,11 +122,11 @@ export const Game = () => {
 		}
 	};
 
-	useEffect(() => {
+	/*useEffect(() => {
 		setIsPlayerBoard(store.playerBoard);
 		setIsCpuBoard(store.cpuBoard);
 		setIsCpuOptions(store.cpuOptions);
-	}, []);
+	}, []);*/
 
 	useEffect(() => {
 		uniqueRandomNumber(100);
