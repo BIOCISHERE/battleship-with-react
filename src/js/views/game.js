@@ -159,7 +159,10 @@ export const Game = () => {
 						</h3>
 						<div className="row">
 							<div className="fitX">
-								{store.playerBoard.map((item, index) => (
+								{store.cpuBoard.map((item, index) => (
+									//we use the cpuboard to map the numbers
+									//since the playerboard now has more than 10 arrays
+									//it will display 15 and we need only 10
 									<div className="infoX" key={index}>
 										{index + 1}
 									</div>
@@ -260,12 +263,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">A</div>
 								{store.cpuBoard[0].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 0, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 0, index)}>
 										A{index + 1}
 									</button>
 								))}
@@ -273,12 +271,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">B</div>
 								{store.cpuBoard[1].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 1, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 1, index)}>
 										B{index + 1}
 									</button>
 								))}
@@ -286,12 +279,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">C</div>
 								{store.cpuBoard[2].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 2, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 2, index)}>
 										C{index + 1}
 									</button>
 								))}
@@ -299,12 +287,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">D</div>
 								{store.cpuBoard[3].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 3, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 3, index)}>
 										D{index + 1}
 									</button>
 								))}
@@ -312,12 +295,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">E</div>
 								{store.cpuBoard[4].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 4, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 4, index)}>
 										E{index + 1}
 									</button>
 								))}
@@ -325,12 +303,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">F</div>
 								{store.cpuBoard[5].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 5, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 5, index)}>
 										F{index + 1}
 									</button>
 								))}
@@ -338,12 +311,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">G</div>
 								{store.cpuBoard[6].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 6, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 6, index)}>
 										G{index + 1}
 									</button>
 								))}
@@ -351,12 +319,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">H</div>
 								{store.cpuBoard[7].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 7, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 7, index)}>
 										H{index + 1}
 									</button>
 								))}
@@ -364,12 +327,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">I</div>
 								{store.cpuBoard[8].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 8, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 8, index)}>
 										I{index + 1}
 									</button>
 								))}
@@ -377,12 +335,7 @@ export const Game = () => {
 							<div className="fitY">
 								<div className="infoY">J</div>
 								{store.cpuBoard[9].map((item, index) => (
-									<button
-										className={actions.classManagerCpu(item)}
-										key={index}
-										value={item}
-										onClick={(e) => playerPick(e.target.value, 9, index)}
-									>
+									<button className={actions.classManagerCpu(item)} key={index} value={item} onClick={(e) => playerPick(e.target.value, 9, index)}>
 										J{index + 1}
 									</button>
 								))}

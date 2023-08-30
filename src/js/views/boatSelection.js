@@ -18,6 +18,11 @@ export const BoatSelection = () => {
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //10
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	]);
 	const [isCpuBoard, setIsCpuBoard] = useState([
@@ -347,6 +352,8 @@ export const BoatSelection = () => {
 
 				if (ex0 != 0 || ex1 != 0 || ex2 != 0 || ex3 != 0 || ex4 != 0) {
 					alert("Can't place the carrier there");
+				} else if (arrayNmbr > 9 || arrayNmbr + 1 > 9 || arrayNmbr + 2 > 9 || arrayNmbr + 3 > 9 || arrayNmbr + 4 > 9) {
+					alert("Can't place the carrier there");
 				} else {
 					isPlayerBoard[arrayNmbr][index] = 1;
 					isPlayerBoard[arrayNmbr + 1][index] = 1;
@@ -368,6 +375,8 @@ export const BoatSelection = () => {
 
 				if (ex0 != 0 || ex1 != 0 || ex2 != 0 || ex3 != 0) {
 					alert("Can't place the battleship there");
+				} else if (arrayNmbr > 9 || arrayNmbr + 1 > 9 || arrayNmbr + 2 > 9 || arrayNmbr + 3 > 9) {
+					alert("Can't place the battleship there");
 				} else {
 					isPlayerBoard[arrayNmbr][index] = 1;
 					isPlayerBoard[arrayNmbr + 1][index] = 1;
@@ -387,6 +396,8 @@ export const BoatSelection = () => {
 
 				if (ex0 != 0 || ex1 != 0 || ex2 != 0) {
 					alert("Can't place the destroyer there");
+				} else if (arrayNmbr > 9 || arrayNmbr + 1 > 9 || arrayNmbr + 2 > 9) {
+					alert("Can't place the destroyer there");
 				} else {
 					isPlayerBoard[arrayNmbr][index] = 1;
 					isPlayerBoard[arrayNmbr + 1][index] = 1;
@@ -403,6 +414,8 @@ export const BoatSelection = () => {
 				let ex1 = isPlayerBoard[arrayNmbr + 1][index];
 
 				if (ex0 != 0 || ex1 != 0) {
+					alert("Can't place the patrol boat there");
+				} else if (arrayNmbr > 9 || arrayNmbr + 1 > 9) {
 					alert("Can't place the patrol boat there");
 				} else {
 					isPlayerBoard[arrayNmbr][index] = 1;
@@ -592,7 +605,11 @@ export const BoatSelection = () => {
 						<h3>{store.playerName}</h3>
 						<div className="row">
 							<div className="fitX">
-								{isPlayerBoard.map((item, index) => (
+								{isCpuBoard.map((item, index) => (
+									//we use the isCpuBoard to map the numbers
+									//since now isPlayerboard is 15 arrays
+									//if we use isPlayerboard to map it, it will map 15 numbers
+									//and we only need 10
 									<div className="infoX" key={index}>
 										{index + 1}
 									</div>
@@ -601,12 +618,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">A</div>
 								{isPlayerBoard[0].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(0, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(0, index)}>
 										A{index + 1}
 									</button>
 								))}
@@ -614,12 +626,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">B</div>
 								{isPlayerBoard[1].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(1, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(1, index)}>
 										B{index + 1}
 									</button>
 								))}
@@ -627,12 +634,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">C</div>
 								{isPlayerBoard[2].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(2, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(2, index)}>
 										C{index + 1}
 									</button>
 								))}
@@ -640,12 +642,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">D</div>
 								{isPlayerBoard[3].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(3, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(3, index)}>
 										D{index + 1}
 									</button>
 								))}
@@ -653,12 +650,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">E</div>
 								{isPlayerBoard[4].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(4, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(4, index)}>
 										E{index + 1}
 									</button>
 								))}
@@ -666,12 +658,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">F</div>
 								{isPlayerBoard[5].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(5, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(5, index)}>
 										F{index + 1}
 									</button>
 								))}
@@ -679,12 +666,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">G</div>
 								{isPlayerBoard[6].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(6, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(6, index)}>
 										G{index + 1}
 									</button>
 								))}
@@ -692,12 +674,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">H</div>
 								{isPlayerBoard[7].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(7, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(7, index)}>
 										H{index + 1}
 									</button>
 								))}
@@ -705,12 +682,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">I</div>
 								{isPlayerBoard[8].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(8, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(8, index)}>
 										I{index + 1}
 									</button>
 								))}
@@ -718,12 +690,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">J</div>
 								{isPlayerBoard[9].map((item, index) => (
-									<button
-										className={actions.classManagerPlayer(item)}
-										key={index}
-										value={item}
-										onClick={() => playerSelection(9, index)}
-									>
+									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(9, index)}>
 										J{index + 1}
 									</button>
 								))}
@@ -804,15 +771,9 @@ export const BoatSelection = () => {
 									Patrol boat ({isPatrolAmnt} left)
 								</button>
 							</div>
-							<h4 className="mt-3">
-								3.- Click the button down below once you finished placing all the boats
-							</h4>
+							<h4 className="mt-3">3.- Click the button down below once you finished placing all the boats</h4>
 							<div>
-								<button
-									type="button"
-									className="btn btn-warning m-1"
-									onClick={() => finishedBoatPlacing()}
-								>
+								<button type="button" className="btn btn-warning m-1" onClick={() => finishedBoatPlacing()}>
 									Ready, set, go!
 								</button>
 							</div>
