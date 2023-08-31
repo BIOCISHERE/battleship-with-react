@@ -37,10 +37,10 @@ $ npm run start
 ![Home Page](src/img/Screenshot%202023-08-30%20at%2020.52.42.png)
 
 -   Boat selection page: here we set up our naval fleet.
--   First select an orientation (`Horizontal` or `Vertical`).
--   Second select a ship type (`Carrier`, `Battleship`, `Destroyer` or `Patrol boat`).
--   Third select in your board a cell to place your `Ship`.
--   Once you finished placing your `Ships` click on the yellow button.
+-   First: select an orientation (`Horizontal` or `Vertical`).
+-   Second: select a ship type (`Carrier`, `Battleship`, `Destroyer` or `Patrol boat`).
+-   Third: select in your board a cell to place your `Ship`.
+-   Once you finished placing your `Ships`, click on the yellow button.
 
 ![Boat Selection](src/img/Screenshot%202023-08-30%20at%2020.53.08.png)
 
