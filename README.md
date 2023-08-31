@@ -1,4 +1,4 @@
-# WebApp boilerplate with React JS
+# Battleship game whit React.js
 
 ### Requirements:
 
