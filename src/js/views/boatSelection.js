@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
-import { func } from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 export const BoatSelection = () => {
-	const { store, actions } = useContext(Context);
+	const { store, actions } = useContext(Context); // global variables and functions
 
-	const navigate = useNavigate();
+	const navigate = useNavigate(); //we use useNavigate to redirect to another page
 
 	const [isPlayerBoard, setIsPlayerBoard] = useState([
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //the player board is a matrix(array of arrays)
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -19,13 +18,14 @@ export const BoatSelection = () => {
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //10
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Added more arrays to avoid runtime errors.
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // If we had 10 arrays and not 15, if we place a boat verticaly
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // thats longer than the matrix of 10 we would get a runtime error.
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	]);
 	const [isCpuBoard, setIsCpuBoard] = useState([
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //the cpu board is a matrix
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,13 +34,12 @@ export const BoatSelection = () => {
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // no need to add more arrays(no runtime errors caught)
 	]);
 
 	// <-------------------------  boat selection ---------------------------->
-	const [isVertical, setIsVertical] = useState(false);
-	const [isHorizontal, setIsHorizontal] = useState(false);
+	const [isVertical, setIsVertical] = useState(false); // used to place boat vertical
+	const [isHorizontal, setIsHorizontal] = useState(false); // used to place boat horizontal
 
 	const [isCarrier, setIsCarrier] = useState(false); //player 5 piece boat
 	const [isCarrierAmnt, setIsCarrierAmnt] = useState(1); //can place 1 carrier
@@ -59,18 +58,22 @@ export const BoatSelection = () => {
 	const [isBattleshipCpu, setIsBattleshipCpu] = useState(1); //cpu 4 piece boat, can place 1 battleship
 
 	const [isDestroyerCpu1, setIsDestroyerCpu1] = useState(1); //cpu 3 piece boat, can place 2 destroyers
-	const [isDestroyerCpu2, setIsDestroyerCpu2] = useState(1);
+	const [isDestroyerCpu2, setIsDestroyerCpu2] = useState(1); //same as isDetroyerCpu1
 
 	const [isPatrolCpu, setIsPatrolCpu] = useState(1); //cpu 2 piece boat, can place 1 patrol boat
 
 	const cpuCarrier = () => {
-		let randomOrientation = Math.random() < 0.5;
+		//this function choose where to place the cpu carrier
+		let randomOrientation = Math.random() < 0.5; // random boolean (returns true or false)
 
 		if (randomOrientation) {
 			//this will be horizontal
-			let randomArray = Math.floor(Math.random() * 10);
-			let randomIndex = Math.floor(Math.random() * 6);
+			//random array won't change and random index will
+			let randomArray = Math.floor(Math.random() * 10); // generates random number from 0 to 9(includes 9) 10 options
+			let randomIndex = Math.floor(Math.random() * 6); // generates random number from 0 to 5(includes 5) 6 options
 
+			//we define this variables to check if the cells are used or not
+			//we increase randomIndex, since we are placing the carrier horizontally
 			let ex0 = isCpuBoard[randomArray][randomIndex];
 			let ex1 = isCpuBoard[randomArray][randomIndex + 1];
 			let ex2 = isCpuBoard[randomArray][randomIndex + 2];
@@ -78,26 +81,36 @@ export const BoatSelection = () => {
 			let ex4 = isCpuBoard[randomArray][randomIndex + 4];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0 || ex3 != 0 || ex4 != 0) {
-				console.log("repeat");
+				//here we checked if the cells values are not 0
+				//if they are not 0, we repeat the function
 				return cpuCarrier();
 			} else {
+				//we define a varible that is isCarrierCpu value minus 1 to use it later
+				//isCarrierCpu represent how many carriers we can place, in this case 1
+				//if it's 0, we can't place more carriers
 				let updateCarrier = Number(isCarrierCpu) - 1;
 
+				//since we checked that the cells values are 0, we replace them to 1
+				//0 means empty cell, 1 means that in the cell theres a piece of the boat
 				isCpuBoard[randomArray][randomIndex] = 1;
 				isCpuBoard[randomArray][randomIndex + 1] = 1;
 				isCpuBoard[randomArray][randomIndex + 2] = 1;
 				isCpuBoard[randomArray][randomIndex + 3] = 1;
 				isCpuBoard[randomArray][randomIndex + 4] = 1;
 
+				//we update the state whit the update variable updateCarrier from above
 				setIsCarrierCpu(updateCarrier);
-				console.log(isCpuBoard);
+				//we return the next funtion to place the cpu battleship
 				return cpuBattleship();
 			}
 		} else if (!randomOrientation) {
 			//this will be vertical
-			let randomArray = Math.floor(Math.random() * 6);
-			let randomIndex = Math.floor(Math.random() * 10);
+			//the array will change, and the index won't
+			let randomArray = Math.floor(Math.random() * 6); //random number from 0 to 5 (includes 5) 6 options
+			let randomIndex = Math.floor(Math.random() * 10); //random number from 0 to 9 (includes 9) 10 options
 
+			//we define variables to check if the cells are used or not
+			//we increase randomArray, since we are placing the carrier vertically
 			let ex0 = isCpuBoard[randomArray][randomIndex];
 			let ex1 = isCpuBoard[randomArray + 1][randomIndex];
 			let ex2 = isCpuBoard[randomArray + 2][randomIndex];
@@ -105,139 +118,197 @@ export const BoatSelection = () => {
 			let ex4 = isCpuBoard[randomArray + 4][randomIndex];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0 || ex3 != 0 || ex4 != 0) {
-				console.log("repeat");
+				//we check if the cells values are not 0
+				//if they are not 0, we repeat the function
 				return cpuCarrier();
 			} else {
+				//we define a variavble that is isCarrierCpu minus 1 to use it later
+				//isCarrierCpu represent how many carriers we can place, in this case 1
+				//if it's 0, we can't place more carriers
 				let updateCarrier = Number(isCarrierCpu) - 1;
 
+				//since we checked that the cells values are 0, we replace them to 1
+				//0 means empty cell, 1 means that in the cell theres a piece of the boat
 				isCpuBoard[randomArray][randomIndex] = 1;
 				isCpuBoard[randomArray + 1][randomIndex] = 1;
 				isCpuBoard[randomArray + 2][randomIndex] = 1;
 				isCpuBoard[randomArray + 3][randomIndex] = 1;
 				isCpuBoard[randomArray + 4][randomIndex] = 1;
 
+				//we update the state whith the update variable updateCarrier from above
 				setIsCarrierCpu(updateCarrier);
-				console.log(isCpuBoard);
+				//we return the next funtion to place the cpu battleship
 				return cpuBattleship();
 			}
 		} else {
+			//in some case the randomOrientation is not true or false we repeat the function
+			//this never happend, but just in case
 			return cpuCarrier();
 		}
 	};
 
 	const cpuBattleship = () => {
-		let randomOrientation = Math.random() < 0.5;
+		//this function choose where to place the cpu battleship
+		let randomOrientation = Math.random() < 0.5; //random boolean (true or false)
 
 		if (randomOrientation) {
 			//this will be horizontal
-			let randomArray = Math.floor(Math.random() * 10);
-			let randomIndex = Math.floor(Math.random() * 7);
+			//the array won't change and the index will
+			let randomArray = Math.floor(Math.random() * 10); //random number from 0 to 9 (includes 9) 10 oprions
+			let randomIndex = Math.floor(Math.random() * 7); //random number from 0 to 6 (includes 6) 7 options
 
+			//we define variables to check if the cells are used or not
+			//we incrase randomIndex, since we are placing the battleship horizontally
 			let ex0 = isCpuBoard[randomArray][randomIndex];
 			let ex1 = isCpuBoard[randomArray][randomIndex + 1];
 			let ex2 = isCpuBoard[randomArray][randomIndex + 2];
 			let ex3 = isCpuBoard[randomArray][randomIndex + 3];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0 || ex3 != 0) {
-				console.log("repeat");
+				//we check if the cells values are not 0
+				//if they are not, we repeat the function
 				return cpuBattleship();
 			} else {
+				//we define a variable that is isBattleshipCpu minus 1 to use it later
+				//isBattleshipCpu represents how many battleships we can place, in this case 1
+				//if it's 0 we can't place more battleships
 				let updateBattleship = Number(isBattleshipCpu) - 1;
 
+				//since we checked that the cells values are 0, we replace them to 1
+				//0 means empty cell, 1 means that in the cell theres a piece of the boat
 				isCpuBoard[randomArray][randomIndex] = 1;
 				isCpuBoard[randomArray][randomIndex + 1] = 1;
 				isCpuBoard[randomArray][randomIndex + 2] = 1;
 				isCpuBoard[randomArray][randomIndex + 3] = 1;
 
+				//we update the state with the updateBattleship variable from above
 				setIsBattleshipCpu(updateBattleship);
-				console.log(isCpuBoard);
+				//we return the next function to place the first cpu destroyer
 				return cpuDestroyer1();
 			}
 		} else if (!randomOrientation) {
 			//this will be vertical
-			let randomArray = Math.floor(Math.random() * 7);
-			let randomIndex = Math.floor(Math.random() * 10);
+			//the array will change and the index won't
+			let randomArray = Math.floor(Math.random() * 7); //random runmber from 0 to 6 (includes 6) 7 options
+			let randomIndex = Math.floor(Math.random() * 10); // random number from 0 to 9 (includes 9) 10 options
 
+			//we define variables to check if the cells are used or not
+			//we incrase randomArray, since we are placing the battleship vertically
 			let ex0 = isCpuBoard[randomArray][randomIndex];
 			let ex1 = isCpuBoard[randomArray + 1][randomIndex];
 			let ex2 = isCpuBoard[randomArray + 2][randomIndex];
 			let ex3 = isCpuBoard[randomArray + 3][randomIndex];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0 || ex3 != 0) {
-				console.log("repeat");
+				//we check if the cell values are not 0
+				//if they are not, we repeat the funtion
 				return cpuBattleship();
 			} else {
+				//we define a variable that is isBattleshipCpu minus 1 to use it later
+				//isBattleshipCpu represents how many battleships we can place, in this case 1
+				//if it's 0 we can't place more battleships
 				let updateBattleship = Number(isBattleshipCpu) - 1;
 
+				//since we checked that the cells values are 0, we replace them to 1
+				//0 means empty cell, 1 means that in the cell theres a piece of the boat
 				isCpuBoard[randomArray][randomIndex] = 1;
 				isCpuBoard[randomArray + 1][randomIndex] = 1;
 				isCpuBoard[randomArray + 2][randomIndex] = 1;
 				isCpuBoard[randomArray + 3][randomIndex] = 1;
 
+				//we update the state with the updateBattleship variable from above
 				setIsBattleshipCpu(updateBattleship);
-				console.log(isCpuBoard);
+				//we return the next function to place the first cpu destroyer
 				return cpuDestroyer1();
 			}
 		} else {
+			//in some case the randomOrientation is not true or false we repeat the function
+			//this never happend, but just in case
 			return cpuBattleship();
 		}
 	};
 
 	const cpuDestroyer1 = () => {
-		let randomOrientation = Math.random() < 0.5;
+		//this function choose where to place the first cpu destroyer
+		let randomOrientation = Math.random() < 0.5; // random boolean (true or false)
 
 		if (randomOrientation) {
 			//this will be horizontal
-			let randomArray = Math.floor(Math.random() * 10);
-			let randomIndex = Math.floor(Math.random() * 8);
+			//the array won't change and the index will
+			let randomArray = Math.floor(Math.random() * 10); // random number from 0 to 9(includes 9) 10 options
+			let randomIndex = Math.floor(Math.random() * 8); // random number from 0 to 7(includes 7) 8 options
 
+			//we define variables to check if the cells are used or not
+			//we incrase randomIndex, since we are placing the firsr destroyer horizontally
 			let ex0 = isCpuBoard[randomArray][randomIndex];
 			let ex1 = isCpuBoard[randomArray][randomIndex + 1];
 			let ex2 = isCpuBoard[randomArray][randomIndex + 2];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0) {
-				console.log("repeat");
+				//we check if the cell values are not 0
+				//if they are not we repeat the function
 				return cpuDestroyer1();
 			} else {
+				//we define a variable that is isDestroyerCpu1 minus 1 to use it later
+				//isDestroyerCpu1 represents how many destroyers we can place, in this case 2
+				//but we separated the lifes since it would't work properly
+				//if it's 0 we can't place more battleships
 				let updateDestroyer = Number(isDestroyerCpu1) - 1;
 
+				//since we checked that the cells values are 0, we replace them to 1
+				//0 means empty cell, 1 means that in the cell theres a piece of the boat
 				isCpuBoard[randomArray][randomIndex] = 1;
 				isCpuBoard[randomArray][randomIndex + 1] = 1;
 				isCpuBoard[randomArray][randomIndex + 2] = 1;
 
+				//we update the state with the updateDestroyer variable from above
 				setIsDestroyerCpu1(updateDestroyer);
-				console.log(isCpuBoard);
+				// we return the function to place the second cpu destroyer
 				return cpuDestroyer2();
 			}
 		} else if (!randomOrientation) {
 			//this will be vertical
-			let randomArray = Math.floor(Math.random() * 8);
-			let randomIndex = Math.floor(Math.random() * 10);
+			//the array will change and the index won't
+			let randomArray = Math.floor(Math.random() * 8); //random number from 0 to 7(includes 7) 8 options
+			let randomIndex = Math.floor(Math.random() * 10); // random number from 0 to 9(includes 9) 10 options
 
+			//we define variables to check if the cells are used or not
+			//we incrase randomArray, since we are placing the firsr destroyer horizontally
 			let ex0 = isCpuBoard[randomArray][randomIndex];
 			let ex1 = isCpuBoard[randomArray + 1][randomIndex];
 			let ex2 = isCpuBoard[randomArray + 2][randomIndex];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0) {
-				console.log("repeat");
+				//we check if the cell values are not 0
+				//if they are not, we repeate the function
 				return cpuDestroyer1();
 			} else {
+				//we define a variable that is isDestroyerCpu1 minus 1 to use it later
+				//isDestroyerCpu1 represents how many destroyers we can place, in this case 2
+				//but we separated the lifes since it would't work properly
+				//if it's 0 we can't place more battleships
 				let updateDestroyer = Number(isDestroyerCpu1) - 1;
 
+				//since we checked that the cells values are 0, we replace them to 1
+				//0 means empty cell, 1 means that in the cell theres a piece of the boat
 				isCpuBoard[randomArray][randomIndex] = 1;
 				isCpuBoard[randomArray + 1][randomIndex] = 1;
 				isCpuBoard[randomArray + 2][randomIndex] = 1;
 
+				//we update the state with the updateDestroyer variable from above
 				setIsDestroyerCpu1(updateDestroyer);
-				console.log(isCpuBoard);
+				// we return the function to place the second cpu destroyer
 				return cpuDestroyer2();
 			}
 		} else {
+			//in some case the randomOrientation is not true or false we repeat the function
+			//this never happend, but just in case
 			return cpuDestroyer1();
 		}
 	};
 
 	const cpuDestroyer2 = () => {
+		//this function is the same as the cpuDestroyer1
 		let randomOrientation = Math.random() < 0.5;
 
 		if (randomOrientation) {
@@ -250,7 +321,6 @@ export const BoatSelection = () => {
 			let ex2 = isCpuBoard[randomArray][randomIndex + 2];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0) {
-				console.log("repreat");
 				return cpuDestroyer2();
 			} else {
 				let updateDestroyer = Number(isDestroyerCpu2) - 1;
@@ -260,7 +330,7 @@ export const BoatSelection = () => {
 				isCpuBoard[randomArray][randomIndex + 2] = 1;
 
 				setIsDestroyerCpu2(updateDestroyer);
-				console.log(isCpuBoard);
+				//we return the function to place the cpu patrol boat
 				return cpuPatrol();
 			}
 		} else if (!randomOrientation) {
@@ -273,7 +343,6 @@ export const BoatSelection = () => {
 			let ex2 = isCpuBoard[randomArray + 2][randomIndex];
 
 			if (ex0 != 0 || ex1 != 0 || ex2 != 0) {
-				console.log("repeat");
 				return cpuDestroyer2();
 			} else {
 				let updateDestroyer = Number(isDestroyerCpu2) - 1;
@@ -283,7 +352,7 @@ export const BoatSelection = () => {
 				isCpuBoard[randomArray + 2][randomIndex] = 1;
 
 				setIsDestroyerCpu2(updateDestroyer);
-				console.log(isCpuBoard);
+				//we return the function to place the cpu patrol boat
 				return cpuPatrol();
 			}
 		} else {
@@ -342,8 +411,14 @@ export const BoatSelection = () => {
 	};
 
 	const playerSelection = (arrayNmbr, index) => {
+		//this function places the payer boats
+		//we recive an array number and a index
+		//the index comes from the map function
+		//this function works the same as the cpuCarrier, cpuBattleship, cpuDestroer1 & 2 and cpuPatrol
 		if (isVertical) {
+			//if isVertical is true, we place the player boats vertically
 			if (isCarrier) {
+				//if isCarrier is true, we are placing a player carrier vertically
 				let ex0 = isPlayerBoard[arrayNmbr][index];
 				let ex1 = isPlayerBoard[arrayNmbr + 1][index];
 				let ex2 = isPlayerBoard[arrayNmbr + 2][index];
@@ -361,13 +436,15 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr + 3][index] = 1;
 					isPlayerBoard[arrayNmbr + 4][index] = 1;
 
+					//isCarrierAmnt is how many carrier the player can place
 					let updateCarrier = Number(isCarrierAmnt) - 1;
 
-					setIsCarrier(false);
-					setIsVertical(false);
-					setIsCarrierAmnt(updateCarrier);
+					setIsCarrier(false); //set to default(false)
+					setIsVertical(false); //set to default(false)
+					setIsCarrierAmnt(updateCarrier); //update isCarrierAmnt
 				}
 			} else if (isBattleship) {
+				//if isBattleship is true, we are placing a player battleshhip vertically
 				let ex0 = isPlayerBoard[arrayNmbr][index];
 				let ex1 = isPlayerBoard[arrayNmbr + 1][index];
 				let ex2 = isPlayerBoard[arrayNmbr + 2][index];
@@ -383,13 +460,15 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr + 2][index] = 1;
 					isPlayerBoard[arrayNmbr + 3][index] = 1;
 
+					//isBattleshipAmt is how many battleships the player can place
 					let updateBattleship = Number(isBattleshipAmnt) - 1;
 
-					setIsBattleship(false);
-					setIsVertical(false);
-					setIsBattleshipAmnt(updateBattleship);
+					setIsBattleship(false); //set to default(false)
+					setIsVertical(false); //set to default(false)
+					setIsBattleshipAmnt(updateBattleship); //update isBattleshipAmnt
 				}
 			} else if (isDestroyer) {
+				//if isDestroyer is true, we are placing a player destroyer vertically
 				let ex0 = isPlayerBoard[arrayNmbr][index];
 				let ex1 = isPlayerBoard[arrayNmbr + 1][index];
 				let ex2 = isPlayerBoard[arrayNmbr + 2][index];
@@ -403,13 +482,15 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr + 1][index] = 1;
 					isPlayerBoard[arrayNmbr + 2][index] = 1;
 
+					//isDestroyerAmnt is how may destroyers the player can place
 					let updateDestroyer = Number(isDestroyerAmnt) - 1;
 
-					setIsDestroyer(false);
-					setIsVertical(false);
-					setIsDestroyerAmnt(updateDestroyer);
+					setIsDestroyer(false); //set to default(false)
+					setIsVertical(false); //set to default(false)
+					setIsDestroyerAmnt(updateDestroyer); //update isDestroyerAmnt
 				}
 			} else if (isPatrol) {
+				//if isPatrol is true, we are placing a player patrol boat vertically
 				let ex0 = isPlayerBoard[arrayNmbr][index];
 				let ex1 = isPlayerBoard[arrayNmbr + 1][index];
 
@@ -421,16 +502,19 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr][index] = 1;
 					isPlayerBoard[arrayNmbr + 1][index] = 1;
 
+					//isPatrolAmnt is how many patrol boats the player can place
 					let updatePatrol = Number(isPatrolAmnt) - 1;
 
-					setIsPatrol(false);
-					setIsVertical(false);
-					setIsPatrolAmnt(updatePatrol);
+					setIsPatrol(false); //set to default(false)
+					setIsVertical(false); // set to default(false)
+					setIsPatrolAmnt(updatePatrol); //update isPatrolAmnt
 				}
 			} else {
+				// if none of the above are true, we return a alert to select a boat type
 				alert("Please, select a boat type");
 			}
 		} else if (isHorizontal) {
+			//if isHorizontal is true, we place the player boats horizontally
 			if (isCarrier) {
 				let ex0 = isPlayerBoard[arrayNmbr][index];
 				let ex1 = isPlayerBoard[arrayNmbr][index + 1];
@@ -447,11 +531,12 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr][index + 3] = 1;
 					isPlayerBoard[arrayNmbr][index + 4] = 1;
 
+					//isCarrierAmnt is how many carriers the player can place
 					let updateCarrier = Number(isCarrierAmnt) - 1;
 
-					setIsCarrier(false);
-					setIsHorizontal(false);
-					setIsCarrierAmnt(updateCarrier);
+					setIsCarrier(false); //set to default(false)
+					setIsHorizontal(false); //set to default(false)
+					setIsCarrierAmnt(updateCarrier); //update isCarrierAmt
 				}
 			} else if (isBattleship) {
 				let ex0 = isPlayerBoard[arrayNmbr][index];
@@ -467,11 +552,12 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr][index + 2] = 1;
 					isPlayerBoard[arrayNmbr][index + 3] = 1;
 
+					//isBattleshipAmnt is how many battleships the player can place
 					let updateBattleship = Number(isBattleshipAmnt) - 1;
 
-					setIsBattleship(false);
-					setIsHorizontal(false);
-					setIsBattleshipAmnt(updateBattleship);
+					setIsBattleship(false); //set to default(false)
+					setIsHorizontal(false); //set to default(false)
+					setIsBattleshipAmnt(updateBattleship); //update isBattleshipAmnt
 				}
 			} else if (isDestroyer) {
 				let ex0 = isPlayerBoard[arrayNmbr][index];
@@ -485,11 +571,12 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr][index + 1] = 1;
 					isPlayerBoard[arrayNmbr][index + 2] = 1;
 
+					//isDestroyerAmnt is how many destroyers the player can place
 					let updateDestroyer = Number(isDestroyerAmnt) - 1;
 
-					setIsDestroyer(false);
-					setIsHorizontal(false);
-					setIsDestroyerAmnt(updateDestroyer);
+					setIsDestroyer(false); //set to default(false)
+					setIsHorizontal(false); //set to default(false)
+					setIsDestroyerAmnt(updateDestroyer); //update isDestroyerAmnt
 				}
 			} else if (isPatrol) {
 				let ex0 = isPlayerBoard[arrayNmbr][index];
@@ -501,70 +588,91 @@ export const BoatSelection = () => {
 					isPlayerBoard[arrayNmbr][index] = 1;
 					isPlayerBoard[arrayNmbr][index + 1] = 1;
 
+					//isPatrolAmnt is how many patrol boats the player can place
 					let updatePatrol = Number(isPatrolAmnt) - 1;
 
-					setIsDestroyer(false);
-					setIsHorizontal(false);
-					setIsPatrolAmnt(updatePatrol);
+					setIsDestroyer(false); //set to default(false)
+					setIsHorizontal(false); //set to default(false)
+					setIsPatrolAmnt(updatePatrol); //update isPatrolAmnt
 				}
 			} else {
+				//if none of the above are true, we return a alert to choose a boat type
 				alert("Please, select a boat type");
 			}
 		} else {
+			//if isVertical and isHorizontal are false we return a alert to choose a direction
 			alert("Please, select a direction (Horizontal or Vertical)");
 		}
 	};
 
 	const carrierClass = () => {
+		//this function manages the className of the carrier button
 		if (isCarrierAmnt == 0) {
+			//if isCarrierAmnt is 0, we hide the button
 			return "btn btn-primary m-1 d-none";
 		} else {
 			if (isCarrier) {
+				//if the button is selected, we change its color to green
 				return "btn btn-success m-1";
 			} else {
+				//if not we set it's color to blue(default)
 				return "btn btn-primary m-1";
 			}
 		}
 	};
 
 	const battleshipClass = () => {
+		//this function manages the className of the battleship button
 		if (isBattleshipAmnt == 0) {
+			//if isBattleshipAmnt is 0, we hide the button
 			return "btn btn-primary m-1 d-none";
 		} else {
 			if (isBattleship) {
+				//if the button is selected, we change it's color to green
 				return "btn btn-success m-1";
 			} else {
+				//if not we set it's color to blue(default)
 				return "btn btn-primary m-1";
 			}
 		}
 	};
 
 	const destroyerClass = () => {
+		//this function manages the className of the detroyer button
 		if (isDestroyerAmnt == 0) {
+			//if isDestroyerAmnt is 0, we hide the button
 			return "btn btn-primary m-1 d-none";
 		} else {
 			if (isDestroyer) {
+				//if the button is selected, we change it's color to green
 				return "btn btn-success m-1";
 			} else {
+				//if not we set it's color to blue(defalut)
 				return "btn btn-primary m-1";
 			}
 		}
 	};
 
 	const patrolClass = () => {
+		//this function manages the className of the patrol boat button
 		if (isPatrolAmnt == 0) {
+			//if isPatrolAmnt is 0, we hide the button
 			return "btn btn-primary m-1 d-none";
 		} else {
 			if (isPatrol) {
+				//if the button is selected, we change it's color to green
 				return "btn btn-success m-1";
 			} else {
+				//if not we set it's color to blue(default)
 				return "btn btn-primary m-1";
 			}
 		}
 	};
 
 	const finishedBoatPlacing = () => {
+		//this function makes sure that all player and cpu boats are placed
 		if (
+			//we verify that all the boats count are 0, from both player and cpu
 			isCarrierAmnt == 0 &&
 			isBattleshipAmnt == 0 &&
 			isDestroyerAmnt == 0 &&
@@ -575,16 +683,20 @@ export const BoatSelection = () => {
 			isDestroyerCpu2 == 0 &&
 			isPatrolCpu == 0
 		) {
+			//save the playerBoard and cpuBoard to the context(global variables)
 			actions.updatePlayer(isPlayerBoard);
 			actions.updateCpu(isCpuBoard);
-			console.log(isCpuBoard);
+			//we redirect to the actual game
 			navigate("/game");
 		} else {
+			//If there are boats from the player or from the cpu that are not being placed
+			// we return aalert.
 			alert("Please place all your boats");
 		}
 	};
 
 	useEffect(() => {
+		//on load we execute the cpuCarrier function, which eventually will execute the others cpu functions
 		cpuCarrier();
 	}, []);
 
@@ -605,12 +717,13 @@ export const BoatSelection = () => {
 						<h3>{store.playerName}</h3>
 						<div className="row">
 							<div className="fitX">
-								{isCpuBoard.map((item, index) => (
-									//we use the isCpuBoard to map the numbers
-									//since now isPlayerboard is 15 arrays
-									//if we use isPlayerboard to map it, it will map 15 numbers
-									//and we only need 10
+								{isPlayerBoard[0].map((item, index) => (
+									//we use the isPlayerBoard to map the numbers
+									//we use anny array, since we don't need the values
+									//we need the array length to map 10 numbers
+									//we use an array and not the matrix, since the matrix has 15 arrays
 									<div className="infoX" key={index}>
+										{/* we use the index from the map to return the numbers */}
 										{index + 1}
 									</div>
 								))}
@@ -618,6 +731,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">A</div>
 								{isPlayerBoard[0].map((item, index) => (
+									//map the first player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(0, index)}>
 										A{index + 1}
 									</button>
@@ -626,6 +740,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">B</div>
 								{isPlayerBoard[1].map((item, index) => (
+									//map the second player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(1, index)}>
 										B{index + 1}
 									</button>
@@ -634,6 +749,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">C</div>
 								{isPlayerBoard[2].map((item, index) => (
+									//map the third player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(2, index)}>
 										C{index + 1}
 									</button>
@@ -642,6 +758,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">D</div>
 								{isPlayerBoard[3].map((item, index) => (
+									//map the fourth player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(3, index)}>
 										D{index + 1}
 									</button>
@@ -650,6 +767,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">E</div>
 								{isPlayerBoard[4].map((item, index) => (
+									//map the fifth player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(4, index)}>
 										E{index + 1}
 									</button>
@@ -658,6 +776,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">F</div>
 								{isPlayerBoard[5].map((item, index) => (
+									//map the sixth player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(5, index)}>
 										F{index + 1}
 									</button>
@@ -666,6 +785,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">G</div>
 								{isPlayerBoard[6].map((item, index) => (
+									//map the seventh player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(6, index)}>
 										G{index + 1}
 									</button>
@@ -674,6 +794,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">H</div>
 								{isPlayerBoard[7].map((item, index) => (
+									//map the eighth player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(7, index)}>
 										H{index + 1}
 									</button>
@@ -682,6 +803,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">I</div>
 								{isPlayerBoard[8].map((item, index) => (
+									//map the nineth player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(8, index)}>
 										I{index + 1}
 									</button>
@@ -690,6 +812,7 @@ export const BoatSelection = () => {
 							<div className="fitY">
 								<div className="infoY">J</div>
 								{isPlayerBoard[9].map((item, index) => (
+									//map the tenth player board array
 									<button className={actions.classManagerPlayer(item)} key={index} value={item} onClick={() => playerSelection(9, index)}>
 										J{index + 1}
 									</button>
@@ -705,6 +828,8 @@ export const BoatSelection = () => {
 								<button
 									className={isVertical ? "btn btn-success m-1" : "btn btn-primary m-1"}
 									onClick={() => {
+										//on click we set isVertical to true
+										//on click we set isHorizontal to false
 										setIsVertical(true);
 										setIsHorizontal(false);
 									}}
@@ -714,6 +839,8 @@ export const BoatSelection = () => {
 								<button
 									className={isHorizontal ? "btn btn-success m-1" : "btn btn-primary m-1"}
 									onClick={() => {
+										//on click we set isVertical to false
+										//on click we set isHorizontal to true
 										setIsHorizontal(true);
 										setIsVertical(false);
 									}}
@@ -726,10 +853,10 @@ export const BoatSelection = () => {
 								<button
 									className={carrierClass()}
 									onClick={() => {
-										setIsCarrier(true);
-										setIsBattleship(false);
-										setIsDestroyer(false);
-										setIsPatrol(false);
+										setIsCarrier(true); //we set isCarrier to true
+										setIsBattleship(false); //we set isBattleship to false
+										setIsDestroyer(false); //we set isDestroyer to false
+										setIsPatrol(false); //we set isPatrol to false
 									}}
 								>
 									Aircraft carrier ({isCarrierAmnt} left)
@@ -738,10 +865,10 @@ export const BoatSelection = () => {
 								<button
 									className={battleshipClass()}
 									onClick={() => {
-										setIsCarrier(false);
-										setIsBattleship(true);
-										setIsDestroyer(false);
-										setIsPatrol(false);
+										setIsCarrier(false); //we set isCarrier to false
+										setIsBattleship(true); //we set isBattleship to true
+										setIsDestroyer(false); // we set isDestroyer to false
+										setIsPatrol(false); //we set isPatrol to false
 									}}
 								>
 									Battleship ({isBattleshipAmnt} left)
@@ -750,10 +877,10 @@ export const BoatSelection = () => {
 								<button
 									className={destroyerClass()}
 									onClick={() => {
-										setIsCarrier(false);
-										setIsBattleship(false);
-										setIsDestroyer(true);
-										setIsPatrol(false);
+										setIsCarrier(false); //we set isCarrier to false
+										setIsBattleship(false); // we set isBattleship to false
+										setIsDestroyer(true); // we set isDestroyer to true
+										setIsPatrol(false); // we set isPatrol to false
 									}}
 								>
 									Destroyer ({isDestroyerAmnt} left)
@@ -762,10 +889,10 @@ export const BoatSelection = () => {
 								<button
 									className={patrolClass()}
 									onClick={() => {
-										setIsCarrier(false);
-										setIsBattleship(false);
-										setIsDestroyer(false);
-										setIsPatrol(true);
+										setIsCarrier(false); //we set isCarrier to false
+										setIsBattleship(false); //we set isBattleship to false
+										setIsDestroyer(false); //we set isDestroyer to false
+										setIsPatrol(true); //we set isPatrol to true
 									}}
 								>
 									Patrol boat ({isPatrolAmnt} left)
